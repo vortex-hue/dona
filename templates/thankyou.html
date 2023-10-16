@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Thank you{% endblock %}
+ 
+{% block main %}
+<section class="contact-page">
+    <div class="container">
+        <div class="block-title text-center">
+            <h2>Thank you for your donation. This will go a long way in help people all over the world</h2>
+
+            <p><a href="{% url 'xrpl:home'%}"> << go back home</a></p>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Campaigns{% endblock %}
+
+{% block header %}
+<!--Page Header Start-->
+<section class="page-header" style="background-image: url(../static/assets/images/backgrounds/page-header-bg.jpg);">
+    <div class="container">
+        <div class="page-header__inner">
+            <h2>Donations</h2>
+            <ul class="thm-breadcrumb list-unstyled">
+                <li><a href="index.html">Home</a></li>
+                <li><span>/</span></li>
+                <li>Campaigns</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!--Page Header End-->
+
+{% endblock %}
+
+{% block main %}
+<!--Popular Causes Three Start-->
+<section class="popular-causes-three campaign-page">
+    <div class="container">
+        <div class="row">
+            {% if campaigns %}
+            {% for campaign in campaigns %}  
+            <div class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="100ms">
+                <!--Popular Causes Single-->
+                <div class="popular-causes__sinlge">
+                    <div class="popular-causes__img">
+                        <img src="assets/images/resources/popular-causes-3-img-1.jpg" alt="">
+                        <div class="popular-causes__category">
+                            <p>{{ campaign.category|title }}</p>
+                        </div>
+                    </div>
+                    <div class="popular-causes__content">
+                        <div class="popular-causes__title">
+                            <h3><a href="{% url 'xrpl:campaign_details' campaign.pk %}">{{ campaign.title }}</a></h3> 
+                            <p>{{ campaign.description|truncatewords:10 }}.</p>
+                        </div>
+                        <div class="popular-causes__progress">
+                            <!-- <div class="bar">
+                                <div class="bar-inner count-bar" data-percent="{{ campaign.campaign_percentage }}">  
+                                    <div class="count-text">{{ campaign.campaign_percentage }}%</div>
+                                </div>
+                            </div> -->
+                            <div class="popular-causes__goals">
+                                <p><span>${{ campaign.current_amount }}</span> Raised</p>
+                                <p><span>${{ campaign.goal_amount }}</span> Goal</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>        
+        <!-- <div class="text-center more-post__btn">
+            <a href="#" class="thm-btn">Load More</a>/.thm-btn
+        </div>/.text-center -->
+    </div>
+</section>
+<!--Popular Causes Three End-->
+
+{% endblock %}

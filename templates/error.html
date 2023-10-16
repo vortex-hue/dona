@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Error{% endblock %}
+
+{% block main %}
+<section class="contact-page">
+    <div class="container">
+        <div class="block-title text-center">
+            <h2>An error occur, please go back</h2>
+
+            <p><a href="{% url 'xrpl:home'%}"> << go back home</a></p>
+        </div>
+    </div>
+</section>
+{% endblock %}

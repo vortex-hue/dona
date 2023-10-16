@@ -1,0 +1,322 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{campaign.title|truncatewords:5}}{% endblock %}
+
+{% block header %}
+
+<!--Page Header Start-->
+<section class="page-header" style="background-image: url(../static/assets/images/backgrounds/page-header-bg.jpg);">
+    <div class="container">
+        <div class="page-header__inner">
+            <h2>Donations</h2>
+            <ul class="thm-breadcrumb list-unstyled">
+                <li><a href="index.html">Home</a></li>
+                <li><span>/</span></li>
+                <li>Campaigns Details</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!--Page Header End-->
+
+{% endblock %}
+
+{% block main %}
+<!--Campaign Details Start-->
+<section class="campaign-details">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-8 col-lg-7">
+                <div class="campaign-details__left-bar">
+                    <div class="campaign-details__img">
+                        <div class="campaign-details__img-box">
+                            <img src="assets/images/resources/campaign-details-img-1.jpg" alt="">
+                            <div class="campaign-details__category">
+                                <p>{{ campaign.category|title }}</p>
+                            </div>
+                        </div>
+                        <div class="campaign-details__progress">
+                            <div class="bar">
+                                <div class="bar-inner count-bar" data-percent="{{ campaign.calculate_percentage|floatformat:2  }}%"><div class="count-text">{{ campaign.calculate_percentage|floatformat:2  }}%</div></div>
+                            </div>
+                            <div class="campaign-details__goals">
+                                <p><span>${{ campaign.current_amount }}</span> Raised</p>
+                                <p><span>${{ campaign.goal_amount }}</span> Goal</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="campaign-details__text-box">
+                        <h3>{{ campaign.title }}</h3>
+                        <p class="campaign-details__text">
+                            {{ campaign.description }}
+                        </p>
+                    </div>
+                    <!-- <div class="campaign-details__summary">
+                        <h3 class="campaign-details__summary-title">Summary</h3>
+                        <p class="campaign-details__summary-text">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type simen book.</p>
+                        <div class="campaign-details__summary-list">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <div class="campaign-details__summary-icon">
+                                        <span class="icon-confirmation"></span>
+                                    </div>
+                                    <div class="campaign-details__summary-content">
+                                        <p>Nsectetur cing do not elit.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="campaign-details__summary-icon">
+                                        <span class="icon-confirmation"></span>
+                                    </div>
+                                    <div class="campaign-details__summary-content">
+                                        <p>Suspe ndisse suscipit sagittis in leo.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="campaign-details__summary-icon">
+                                        <span class="icon-confirmation"></span>
+                                    </div>
+                                    <div class="campaign-details__summary-content">
+                                        <p>Entum estibulum dignissim lipsm posuere.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="campaign-details__summary-img-box">
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6">
+                                    <div class="campaign-details__summary-img-box-single">
+                                        <img src="assets/images/resources/summary-img-1.jpg" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6">
+                                    <div class="campaign-details__summary-img-box-single">
+                                        <img src="assets/images/resources/summary-img-2.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="campaign-details__summary-bottom-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. orem Ipsum has been the industry's standard dummy text ever since the when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                    </div> -->
+
+                    <div class="comment-form">
+                        <div class="block-title text-center">
+                            <h4>Donate</h4>
+                            <h2>Give Generously</h2>
+                        </div>
+                        <form action="" class="comment-one__form" method="post">
+                            {% csrf_token %}
+                                {{ form|crispy }}
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <button id="donate-button" type="submit" class="thm-btn contact-form__btn"></button>
+                                        <!-- <div id="loading-indicator" style="display: none;">Loading...</div> -->
+                                    </div>
+                                </div>
+                        </form>
+
+                        <!-- <form id="xrp-donation-form" class="comment-one__form" method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    <div class="comment-form__input-box">
+                                        <input type="text" name="name" placeholder="Your name" id="name" required>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="comment-form__input-box">
+                                        <input type="text" name="email" placeholder="Your email" id="email" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    <div class="comment-form__input-box">
+                                        <input type="text" name="seed" id="seed" placeholder="Your seed" required>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="comment-form__input-box">
+                                        <input type="text" name="xrp_amount" id="xrp_amount" placeholder="Your amount" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="comment-form__input-box">
+                                        <textarea type="text" name="message" id="message" placeholder="Write message"></textarea>
+                                    </div>
+                                    <button type="submit" id="donate-button" class="thm-btn comment-form__btn">Donate with XRP</button>
+                                    <div id="loading-indicator" style="display: none;">Loading...</div>
+                                </div>
+                            </div>
+                        </form>
+                        <div id="xrp-donation-message"></div> -->
+                        
+                    </div>
+
+                    <!-- <section class="contact-page">
+                        <div class="container">
+                            <div class="block-title text-center">
+                                <h4>Donate</h4>
+                                <h2>Give Generously</h2>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-8 col-lg-7">
+                                    <div class="contact-form">
+                                        <form action="" class="contact-form-validated contact-one__form" method="post">
+                                            {% csrf_token %}
+                                            <div class="row">
+                                                <div class="col-xl-6">
+                                                    {{ form.name.label_tag }}
+                                                    {{ form.name }}
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    {{ form.email.label_tag }}
+                                                    {{ form.email }}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xl-6">
+                                                    {{ form.phone.label_tag }}
+                                                    {{ form.phone }}
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    {{ form.amount.label_tag }}
+                                                    {{ form.amount }}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xl-12">
+                                                    {{ form.message.label_tag }}
+                                                    {{ form.message }}
+                                                    <button type="submit" class="thm-btn contact-form__btn">Donate</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </section> -->
+                    
+                    <!-- <div class="comment-form">
+                        <h3 class="comment-form__title">Give Generously</h3>
+                        <form action="inc/sendemail.php" class="comment-one__form">
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    <div class="comment-form__input-box">
+                                        <input type="text" placeholder="Your name" name="name">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="comment-form__input-box">
+                                        <input type="email" placeholder="Email address" name="email">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    <div class="comment-form__input-box">
+                                        <input type="text" placeholder="Phone number" name="phone">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="comment-form__input-box">
+                                        <input type="email" placeholder="Subject" name="Subject">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="comment-form__input-box">
+                                        <textarea name="message" placeholder="Write message"></textarea>
+                                    </div>
+                                    <button type="submit" class="thm-btn comment-form__btn">Donate</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div> -->
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-5">
+                <div class="campaign-details__right-bar">
+                    <div class="campaign-details__organizer">
+                        <!-- <div class="campaign-details__organizer-img">
+                            <img src="assets/images/resources/organizer-img-1.png" alt="">
+                        </div> -->
+                        <h3 class="campaign-details__organizer-title">Benjanmin Uchenna</h3>
+                        <p class="campaign-details__organizer-text">A blockchain enthusiastic with a great knowlegde on cryptography</p>
+                    </div>
+                    <div class="campaign-details__donations">
+                        <h4 class="contact-page__info-box-tilte">Luke 6:38</h4>
+                            <p>Give, it shall be given unto you;
+                                good measure, pressed down, and shaken together and running over, will be poured into your lap. For with the measuer you use, it will be measured to you.
+                            </p>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // JavaScript to handle the form submission
+    const xrpDonationForm = document.getElementById("xrp-donation-form");
+    const messageContainer = document.getElementById("xrp-donation-message");
+    const loadingIndicator = document.getElementById("loading-indicator");
+    const donateButton = document.getElementById("donate-button");
+
+    donateButton.textContent = "Donate xrp"
+    xrpDonationForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        // Show loading indicator and disable the button
+        // loadingIndicator.style.display = "block";
+        donateButton.textContent = "Loading";
+
+        // Gather form data
+        const seed = xrpDonationForm.querySelector("#seed").value;
+        const xrpAmountInput = xrpDonationForm.querySelector("#xrp_amount");
+        const xrpAmount = xrpAmountInput.value;
+
+        // Send a POST request to the XrpDonationView
+        const response = await fetch("{% url 'xrpl:campaign_details' campaign.pk %}", {
+            method: "POST",
+            body: new URLSearchParams({ seed, xrp_amount: xrpAmount }),
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}",
+            },
+        });
+        
+
+
+        // Hide any previous error message
+        // messageContainer.textContent = "";
+
+        // Handle the response
+        const data = await response.json();
+
+        // Hide loading indicator and enable the button
+        // loadingIndicator.style.display = "none";
+        // donateButton.disabled = false;
+
+        if (data.success) {
+            // Redirect to the "thank you" page
+            window.location.href = "{% url 'xrpl:thank_you_page' %}";
+        } else {
+            messageContainer.textContent = "Error: " + data.message;
+            window.location.href = "{% url 'xrpl:payment_error_page' %}";
+        }
+    });
+</script>
+
+<!--Campaign Details End-->
+{% endblock %}
